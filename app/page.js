@@ -12,7 +12,7 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filtersData, setFiltersData] = useState({
     brands: [],
-    models: {},
+    models: [],
     tariffs: {},
   });
   const [tariffsArr, setTariffsArr] = useState([]);
@@ -75,12 +75,14 @@ const Home = () => {
     let updatedFilter = { ...filter };
 
     if (type === "brands") {
+      const newBrands = updatedFilter.brands.includes(value)
+        ? updatedFilter.brands.filter((item) => item !== value)
+        : [...updatedFilter.brands, value];
+
       updatedFilter = {
         ...updatedFilter,
-        brands: updatedFilter.brands.includes(value)
-          ? updatedFilter.brands.filter((item) => item !== value)
-          : [...updatedFilter.brands, value],
-        models: [], 
+        brands: newBrands,
+        models: [],
       };
     } else {
       updatedFilter = {
@@ -92,10 +94,15 @@ const Home = () => {
     }
 
     setFilter(updatedFilter);
-    setPage(1); 
+    setPage(1);
   };
 
-  const modelsByBrand = (brand) => filtersData.models?.[brand]?.models || [];
+  const modelsByBrand = (brands) => {
+    return filtersData.models.values
+      .filter((brandData) => brands.includes(brandData.brand))
+      .flatMap((brandData) => brandData.models);
+  };
+
   const tariffs = tariffsArr || [];
 
   return (
@@ -126,9 +133,8 @@ const Home = () => {
         <div className={styles.filterGroup}>
           <h3>Фильтр по модели</h3>
           {filter.brands.length > 0 ? (
-            filter.brands.flatMap((brand) => modelsByBrand(brand)).length >
-            0 ? (
-              modelsByBrand(filter.brands[0]).map((model) => (
+            modelsByBrand(filter.brands).length > 0 ? (
+              modelsByBrand(filter.brands).map((model) => (
                 <div key={model}>
                   <label>
                     <input
