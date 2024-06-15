@@ -1,0 +1,83 @@
+.container {
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterGroup h3 {
+  margin-bottom: 10px;
+}
+
+.filterGroup div {
+  margin-bottom: 5px;
+}
+
+.carList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.carItem {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+}
+
+.carItem:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carItem img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.carItem h3 {
+  margin: 10px 0;
+}
+
+.carItem p {
+  margin: 5px 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination ul {
+  list-style: none;
+  display: flex;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active a {
+  background-color: #0070f3;
+  color: white;
+  border-color: #0070f3;
+}
